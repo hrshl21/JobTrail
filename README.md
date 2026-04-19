@@ -1,6 +1,5 @@
 # JobTrail
 
-<img src="https://github.com/hrshl21/JobTrail/blob/main/image.png?raw=true" alt="JobTrail Header image" />
 
 **A privacy-first, local-only Chrome Extension to automatically track your job applications.**
 
