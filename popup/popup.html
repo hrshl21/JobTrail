@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JobTrail</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+
+  <!-- Triage center: shows actionable jobs at a glance -->
+  <div id="triage-state">
+    <header class="popup-header">
+      <div class="brand">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        JobTrail
+      </div>
+      <button id="top-dash-btn" class="open-dash-icon" title="Open Full Dashboard">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          <polyline points="15 3 21 3 21 9" />
+          <line x1="10" y1="14" x2="21" y2="3" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="summary-strip" id="summary-text">Calculating pipeline...</div>
+
+    <div class="job-list" id="triage-list">
+    </div>
+
+    <div class="popup-footer">
+      <button id="bottom-dash-btn" class="full-dash-btn">Open Full Dashboard &rarr;</button>
+    </div>
+  </div>
+
+  <script src="../utils/storage-crud.js"></script>
+  <script src="../utils/storage-analytics.js"></script>
+  <script src="popup-triage.js"></script>
+  <script src="popup.js"></script>
+</body>
+
+</html>

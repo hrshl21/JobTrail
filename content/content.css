@@ -1,0 +1,182 @@
+/* content/content.css — Styles for injected UI on job sites */
+:root {
+  --jt-success-bg: rgba(16, 185, 129, 0.1);
+  --jt-success-border: #34d399;
+  --jt-success-text: #065f46;
+  --jt-tracked-bg: transparent;
+  --jt-tracked-border: #cbd5e1;
+  --jt-tracked-text: #475569;
+  --jt-loading-text: #64748b;
+  --jt-error-bg: rgba(239, 68, 68, 0.1);
+  --jt-error-border: #fca5a5;
+  --jt-error-text: #991b1b;
+}
+
+/* ── Base Button ── */
+.jt-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+  box-sizing: border-box !important;
+  background-color: transparent !important;
+  min-width: 110px !important;
+  white-space: nowrap !important;
+  line-height: normal !important;
+}
+
+.jt-btn span {
+  display: inline-block !important;
+  line-height: 1 !important;
+  margin-top: 2px !important;
+}
+
+/* ── SVG Icons ── */
+.jt-icon {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+  stroke: currentColor !important;
+  stroke-width: 2.2 !important;
+  fill: none !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  display: block !important;
+}
+
+.jt-spinner {
+  animation: jt-spin 1s linear infinite;
+}
+
+@keyframes jt-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Site: LinkedIn ── */
+.jt-linkedin {
+  border-radius: 100px !important;
+  height: 32px !important;
+  padding: 0 16px !important;
+  margin-left: 8px !important;
+  border: 1px solid #0a66c2 !important;
+  color: #0a66c2 !important;
+  font-size: 1.6rem !important;
+}
+
+.jt-linkedin:hover:not(.jt-state-success, .jt-state-already, .jt-state-loading) {
+  background-color: rgba(10, 102, 194, 0.1) !important;
+  border-width: 2px !important;
+  padding: 0 15px !important;
+}
+
+/* ── Site: Indeed ── */
+.jt-indeed {
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  padding: 0 1.2rem !important;
+  margin-left: 12px !important;
+  border: 1px solid #2557a7 !important;
+  color: #2557a7 !important;
+  font-family: "Noto Sans", "Helvetica Neue", Helvetica, sans-serif !important;
+  font-size: 1rem !important;
+}
+
+.jt-indeed:hover:not(.jt-state-success, .jt-state-already, .jt-state-loading) {
+  background-color: rgba(37, 87, 167, 0.08) !important;
+}
+
+/* ── Site: Naukri ── */
+.jt-naukri {
+  border-radius: 50px !important;
+  height: 40px !important;
+  padding: 0 24px !important;
+  margin-left: 12px !important;
+  border: 1px solid #275df5 !important;
+  color: #275df5 !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+}
+
+.jt-naukri:hover:not(.jt-state-success, .jt-state-already, .jt-state-loading) {
+  background-color: rgba(39, 93, 245, 0.08) !important;
+}
+
+/* ── Button States ── */
+.jt-state-loading {
+  border-color: #cbd5e1 !important;
+  color: var(--jt-loading-text) !important;
+  pointer-events: none !important;
+}
+
+.jt-state-success {
+  background-color: var(--jt-success-bg) !important;
+  border-color: var(--jt-success-border) !important;
+  color: var(--jt-success-text) !important;
+  pointer-events: none !important;
+}
+
+.jt-state-already {
+  background-color: var(--jt-tracked-bg) !important;
+  border-color: var(--jt-tracked-border) !important;
+  color: var(--jt-tracked-text) !important;
+  pointer-events: none !important;
+}
+
+.jt-state-error {
+  background-color: var(--jt-error-bg) !important;
+  border-color: var(--jt-error-border) !important;
+  color: var(--jt-error-text) !important;
+}
+
+/* ── Toast Notifications ── */
+.jt-toast {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  padding: 12px 20px !important;
+  border-radius: 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  z-index: 999999 !important;
+  opacity: 0 !important;
+  transform: translateY(12px) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  max-width: 380px !important;
+  line-height: 1.4 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.jt-toast-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.jt-toast-info {
+  background: #1e293b !important;
+  color: #f1f5f9 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+.jt-toast-warning {
+  background: #451a03 !important;
+  color: #fef3c7 !important;
+  border: 1px solid rgba(251, 191, 36, 0.4) !important;
+}
+
+.jt-toast-error {
+  background: #450a0a !important;
+  color: #fecaca !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+
+.jt-toast-success {
+  background: #052e16 !important;
+  color: #bbf7d0 !important;
+  border: 1px solid rgba(34, 197, 94, 0.4) !important;
+}

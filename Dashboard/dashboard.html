@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JobTrail Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+  <div class="app-container">
+
+    <header class="top-bar">
+      <div class="brand">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        JobTrail
+      </div>
+
+      <div class="kpi-strip">
+        <div class="kpi-item"><span class="kpi-label">Pipeline</span><strong id="kpi-pipeline">0</strong></div>
+        <div class="kpi-item"><span class="kpi-label">Action Required</span><strong id="kpi-followup"
+            class="text-warning">0</strong></div>
+        <div class="kpi-item"><span class="kpi-label">Interviews</span><strong id="kpi-interviews"
+            class="text-success">0</strong></div>
+        <div class="kpi-item"><span class="kpi-label">Offers</span><strong id="kpi-offers"
+            class="text-success">0</strong></div>
+      </div>
+
+      <div class="top-bar-actions">
+        <!-- View Toggle -->
+        <div class="view-toggle">
+          <button id="view-kanban" class="toggle-btn active" title="Kanban Board">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </button>
+          <button id="view-analytics" class="toggle-btn" title="Analytics">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 20V10" />
+              <path d="M12 20V4" />
+              <path d="M6 20v-6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Search -->
+        <div class="search-wrapper">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="search-input" placeholder="Search jobs..." class="search-input">
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="filter-chips" id="filter-chips">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="LinkedIn">LinkedIn</button>
+          <button class="chip" data-filter="Indeed">Indeed</button>
+          <button class="chip" data-filter="Naukri">Naukri</button>
+        </div>
+
+        <!-- Actions -->
+        <button id="export-btn" class="secondary-btn">Export</button>
+        <button id="import-btn" class="secondary-btn">Import</button>
+        <input type="file" id="import-file" accept=".json" style="display:none">
+        <a href="mailto:zetapiscium21@gmail.com?subject=JobTrail%20Bug%20Report" class="bug-report-link" title="Report a bug via email">Report Bug</a>
+      </div>
+    </header>
+
+    <!-- Kanban View -->
+    <main class="board-container" id="kanban-view">
+
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="header-title">Applied <span class="count" id="count-applied">0</span></div>
+        </div>
+        <div class="column-body" id="col-applied" data-status="Applied"></div>
+      </div>
+
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="header-title">Needs Follow-up <span class="count" id="count-follow-up">0</span></div>
+        </div>
+        <div class="column-body" id="col-follow-up" data-status="Follow-up"></div>
+      </div>
+
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="header-title">Interviewing <span class="count" id="count-interview">0</span></div>
+        </div>
+        <div class="column-body" id="col-interview" data-status="Interview"></div>
+      </div>
+
+      <div class="kanban-column">
+        <div class="column-header">
+          <div class="header-title">Offers <span class="count" id="count-offer">0</span></div>
+        </div>
+        <div class="column-body" id="col-offer" data-status="Offer"></div>
+      </div>
+
+      <div class="kanban-column muted-column">
+        <div class="column-header">
+          <div class="header-title">Ghosted <span class="count" id="count-ghosted">0</span></div>
+        </div>
+        <div class="column-body" id="col-ghosted" data-status="Ghosted"></div>
+      </div>
+
+      <div class="kanban-column muted-column">
+        <div class="column-header">
+          <div class="header-title">Rejected <span class="count" id="count-rejected">0</span></div>
+        </div>
+        <div class="column-body" id="col-rejected" data-status="Rejected"></div>
+      </div>
+
+    </main>
+
+    <!-- Analytics View -->
+    <main class="analytics-container hidden" id="analytics-view">
+      <div class="analytics-grid">
+
+        <div class="analytics-card wide">
+          <div class="card-label">Application Velocity</div>
+          <div class="card-sublabel">Applications per week (last 8 weeks)</div>
+          <canvas id="chart-velocity" height="180"></canvas>
+        </div>
+
+        <div class="analytics-card">
+          <div class="card-label">Pipeline Funnel</div>
+          <div id="funnel-chart" class="funnel-container"></div>
+        </div>
+
+        <div class="analytics-card">
+          <div class="card-label">Source Distribution</div>
+          <div id="source-chart" class="donut-container">
+            <canvas id="chart-sources" width="180" height="180"></canvas>
+            <div id="source-legend" class="chart-legend"></div>
+          </div>
+        </div>
+
+        <div class="analytics-card">
+          <div class="card-label">Key Metrics</div>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-value" id="metric-total">0</span>
+              <span class="metric-label">Total Tracked</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value text-success" id="metric-response">0%</span>
+              <span class="metric-label">Response Rate</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value text-warning" id="metric-avg-days">0</span>
+              <span class="metric-label">Avg Days in Pipeline</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value text-success" id="metric-offers">0</span>
+              <span class="metric-label">Offers Received</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="analytics-card wide">
+          <div class="card-label">Top Companies</div>
+          <div id="top-companies" class="companies-bar-chart"></div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Job Detail Modal -->
+  <div id="job-modal" class="modal-overlay hidden">
+    <div class="modal">
+      <button id="close-modal" class="close-btn">&times;</button>
+      <div class="modal-content">
+
+        <div class="modal-left">
+          <h2 id="modal-title">Job Title</h2>
+          <h3 id="modal-company">Company Name</h3>
+          <a id="modal-url" href="#" target="_blank" class="job-link">View Original Posting &nearr;</a>
+
+          <!-- Job Meta Tags -->
+          <div id="modal-meta-tags" class="modal-meta-tags"></div>
+
+          <!-- Status Timeline -->
+          <div class="section-label" style="margin-top:20px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+            Timeline
+          </div>
+          <div id="modal-timeline" class="status-timeline"></div>
+
+          <div class="section-label" style="margin-top:20px;">Job Description</div>
+          <div id="modal-description" class="job-description-content"></div>
+        </div>
+
+        <div class="modal-right">
+          <div class="section-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+              <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z" />
+            </svg>
+            Notes & Details
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="modal-resume">Resume Version Used</label>
+            <input type="text" id="modal-resume" placeholder="e.g. v2_Frontend_DarkTheme" class="field-input" />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="modal-ctc">Expected CTC</label>
+            <input type="text" id="modal-ctc" placeholder="e.g. 15,00,000" class="field-input" />
+          </div>
+
+          <div class="field-group field-group--grow">
+            <label class="field-label" for="modal-notes">Interview Notes</label>
+            <textarea id="modal-notes" class="field-textarea"
+              placeholder="Recruiter name, interview rounds, key info..."></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button id="save-notes-btn" class="modal-action-btn modal-action-btn--primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+              Save Updates
+            </button>
+
+            <button id="llm-copy-btn" class="modal-action-btn modal-action-btn--secondary"
+              title="Copies job details + your notes to clipboard, formatted for ChatGPT or Claude.">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              Copy Context for AI
+            </button>
+            <p class="ai-hint">Paste into ChatGPT or Claude to write cover letters & prep for interviews.</p>
+
+            <button id="delete-job-btn" class="modal-action-btn modal-action-btn--danger">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+              Delete Job
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../utils/storage-crud.js"></script>
+  <script src="../utils/storage-analytics.js"></script>
+  <!-- Dashboard feature modules (load in dependency order) -->
+  <script src="dashboard-state.js"></script>
+  <script src="dashboard-modal.js"></script>
+  <script src="dashboard-analytics.js"></script>
+  <script src="dashboard-board.js"></script>
+  <script src="dashboard-drag-drop.js"></script>
+  <script src="dashboard-filters.js"></script>
+  <script src="dashboard-import-export.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+
+</html>
