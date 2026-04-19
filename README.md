@@ -34,7 +34,7 @@ Since this is an unpacked open-source extension, you can install it directly in 
 
 1. Download or clone this repository to your local machine:
    ```bash
-  [ git clone https://github.com/YOUR-USERNAME/job-tracker-extension.git]
+https://github.com/hrshl21/JobTrail.git
    ```
 2. Open Google Chrome and navigate to `chrome://extensions/`.
 3. Enable **Developer mode** using the toggle switch in the top right corner.
