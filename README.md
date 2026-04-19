@@ -34,3 +34,27 @@ Since this is an unpacked open-source extension, you can install it directly in 
 1. Download or clone this repository to your local machine:
    ```bash
    git clone [https://github.com/hrshl21/JobTrail.git](https://github.com/hrshl21/JobTrail.git)
+   ```
+2. Open Google Chrome and navigate to `chrome://extensions/`.
+3. Enable **Developer mode** using the toggle switch in the top right corner.
+4. Click the **Load unpacked** button in the top left.
+5. Select the `job-tracker-extension` folder that you just cloned.
+6. Look for the JobTrail icon in your extensions menu, pin it, and start applying!   
+
+## 🛠️ Architecture
+
+*For full technical details, please see [ARCHITECTURE.md](ARCHITECTURE.md).*
+
+JobTrail is a purely client-side application utilizing:
+- **Manifest V3**
+- **Content Scripts** for DOM parsing, MutationObservers, and scraping on job portals.
+- **Background Service Worker** to handle reminders and desktop notifications.
+- **Vanilla structure** (HTML/CSS/JS) with no external bloated frameworks or charting libraries.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/hrshl21/JobTrail/issues). 
+
+## 📜 License
+
+This project is open-source and available under the [MIT License](LICENSE).
