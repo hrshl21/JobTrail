@@ -1,5 +1,7 @@
 # JobTrail
 
+<img src="https://github.com/hrshl21/JobTrail/blob/main/image.png?raw=true" alt="JobTrail Header image" />
+
 **A privacy-first, local-only Chrome Extension to automatically track your job applications.**
 
 JobTrail takes the manual work out of your job search. Whenever you click "Apply" on LinkedIn, Indeed, or Naukri, JobTrail seamlessly intercepts the application, scrapes the job details, and organizes them in a beautiful Kanban dashboard right inside your browser. 
@@ -19,13 +21,21 @@ No more messy spreadsheets, and no more forgetting what salary you applied for.
   - Zeo telemetry.
   - All your data is stored locally on your device in `chrome.storage.local`.
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="https://github.com/hrshl21/JobTrail/blob/main/screely-jobtrail-dashboard-20260419-201558%20(1).png?raw=true" alt="JobTrail Dashboard View" width="48%" />
+  &nbsp;
+  <img src="https://github.com/hrshl21/JobTrail/blob/main/screely-jobtrail-dashboard-20260419-201814%20(1).png?raw=true" alt="JobTrail Analytics View" width="48%" />
+</p>
+
 ## 🚀 Installation 
 
 Since this is an unpacked open-source extension, you can install it directly in Developer Mode:
 
 1. Download or clone this repository to your local machine:
    ```bash
-   [git clone https://github.com/hrshl21/JobTrail](https://github.com/hrshl21/JobTrail.git)
+   git clone https://github.com/YOUR-USERNAME/job-tracker-extension.git
    ```
 2. Open Google Chrome and navigate to `chrome://extensions/`.
 3. Enable **Developer mode** using the toggle switch in the top right corner.
@@ -45,7 +55,7 @@ JobTrail is a purely client-side application utilizing:
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome.
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/YOUR-USERNAME/job-tracker-extension/issues). 
 
 ## 📜 License
 
